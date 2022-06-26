@@ -26,3 +26,15 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
+
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/inertia-vue3'
+
+createInertiaApp({
+  resolve: name => import(`../Pages/${name}.vue`), // thank you https://www.scien.cx/2021/12/22/setting-up-a-new-rails-7-app-with-vite-inertia-and-svelte/
+  setup({ el, App, props, plugin }) {
+    createApp({ render: () => h(App, props) })
+      .use(plugin)
+      .mount(el)
+  },
+})
